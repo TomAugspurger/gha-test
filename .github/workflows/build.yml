@@ -1,15 +1,13 @@
 name: Build and Deploy
 on:
   # Trigger the workflow on push or pull request,
-  # but only for the master branch
+  # but only for the main branch
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
-  repository_dispatch:
-    types: [update-gallery]
+      - main
 
 jobs:
   build-and-deploy:
@@ -26,6 +24,7 @@ jobs:
       - name: step1
         if: contains( env.commitmsg , 'test-staging' )
         run: echo hello
+
       - name: step2
         if: "!contains( env.commitmsg , 'test-staging' )"
         run: echo $commitmsg
