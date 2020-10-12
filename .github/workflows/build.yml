@@ -1,0 +1,31 @@
+name: Build and Deploy
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the master branch
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  repository_dispatch:
+    types: [update-gallery]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    # TODO: If GitHub gives access to the commit message in PRs, this gets easier.
+    steps:
+      - uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        with:
+          persist-credentials: false
+
+      - name: get commit message
+        run: |
+           echo "commitmsg=$(git log --format=%B -n 1 ${{ github.event.after }})" >> $GITHUB_ENV
+      - name: step1
+        if: contains( env.commitmsg , 'test-staging' )
+        run: echo hello
+      - name: step2
+        if: "!contains( env.commitmsg , 'test-staging' )"
+        run: echo $commitmsg
