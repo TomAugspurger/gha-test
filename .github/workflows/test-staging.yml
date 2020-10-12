@@ -3,7 +3,7 @@ name: Test Staging
 on:
   pull_request_target:
     branches:
-      - master
+      - main
 
 jobs:
   test-staging:
@@ -31,4 +31,4 @@ jobs:
         run: echo $commitmsg
 
       - name: context
-        run: echo ${{ context }}
+        run: echo ${{ github }}
