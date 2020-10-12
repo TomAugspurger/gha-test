@@ -28,3 +28,6 @@ jobs:
       - name: step2
         if: "!contains( env.commitmsg , 'test-staging' )"
         run: echo $commitmsg
+
+      - name: context
+        run: echo ${{ context }}
