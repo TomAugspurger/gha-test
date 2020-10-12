@@ -1,0 +1,34 @@
+# Runs all galleries against staging
+name: Test Staging
+on:
+  pull_request_target:
+    branches:
+      - master
+
+jobs:
+  test-staging:
+    runs-on: ubuntu-latest
+    # TODO: If GitHub gives access to the commit message in PRs, this gets easier.
+    # if: "contains(github.event.head_commit.message, 'test-staging')"
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PANGEOBOT_TOKEN }}
+          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.client_payload.pull_request.head.ref }}
+
+      - name: get commit message
+        run: |
+           echo "commitmsg=$(git log --format=%B -n 1 ${{ github.event.after }})" >> $GITHUB_ENV
+
+      - name: step1
+        if: contains( env.commitmsg , 'test-staging' )
+        run: echo hello
+
+      - name: step2
+        if: "!contains( env.commitmsg , 'test-staging' )"
+        run: echo $commitmsg
+
+      - name: context
+        run: echo ${{ context }}
