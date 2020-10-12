@@ -30,4 +30,4 @@ jobs:
         run: echo $commitmsg
 
       - name: context
-        run: echo ${{ context }}
+        run: echo ${{ github }}
