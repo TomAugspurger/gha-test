@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.PANGEOBOT_TOKEN }}
+        # with:
+        #   token: ${{ secrets.PANGEOBOT_TOKEN }}
 
       - name: get commit message
         run: |
