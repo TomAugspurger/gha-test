@@ -17,6 +17,12 @@ jobs:
       - uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
         with:
           persist-credentials: false
+          fetch-depth: 0  # TODO: remove from here.
+
+        # with:
+        #   token: ${{ secrets.PANGEOBOT_TOKEN }}
+
+      - name: get commit message
 
       - name: get commit message
         run: |
